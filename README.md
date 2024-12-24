@@ -1,16 +1,11 @@
-# crypto_diary
+# Crypto Diary 📈
 
-A new Flutter project.
+Crypto Diary is a Flutter app designed to simplify cryptocurrency tracking. It allows you to log your purchases and sales, view them in a clear table, and easily calculate profits or losses. The app is especially beneficial for users applying the Dollar-Cost Averaging (DCA) strategy.
 
-## Getting Started
+## Features
+- Log crypto transactions with details like date, price, and quantity.
+- View your data in a table format.
+- Effortlessly track profits and losses.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## License
+All Rights Reserved.
