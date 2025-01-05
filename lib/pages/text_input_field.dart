@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TextInputField extends StatefulWidget {
+class TextInputField extends StatelessWidget {
   final String label;
   final TextEditingController textController;
 
@@ -11,24 +11,19 @@ class TextInputField extends StatefulWidget {
   });
 
   @override
-  State<TextInputField> createState() => _TextInputFieldState();
-
-  void clearTextField() {
-    textController.clear();
-  }
-}
-
-class _TextInputFieldState extends State<TextInputField> {
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: TextFormField(
-        controller: widget.textController,
+        controller: textController,
         decoration: InputDecoration(
-          labelText: widget.label,
+          labelText: label,
         ),
       ),
     );
+  }
+
+  void clearTextField() {
+    textController.clear();
   }
 }

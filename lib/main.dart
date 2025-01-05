@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_diary/pages/deposit_page.dart';
+import 'package:crypto_diary/pages/withdraw_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,8 +36,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
-  //var activeWidgetPage = const RegisterPage();
-  var activeWidgetPage = const DepositPage();
+  //var activeWidgetPage = const DepositPage();
+  var activeWidgetPage = const WithdrawPage();
 
   List<BottomNavigationBarItem> bottomToolbarItems = const [
     BottomNavigationBarItem(
@@ -53,6 +54,16 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
+  getActiveWidgetPage(selectedIndex) {
+    if (selectedIndex == 0) {
+      return const DepositPage();
+    } else if (selectedIndex == 1) {
+      return const WithdrawPage();
+    } else if (selectedIndex == 2) {
+      return const Text('History');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            activeWidgetPage,
+            Expanded(
+              child: getActiveWidgetPage(selectedIndex),
+            ),
           ],
         ),
       ),
