@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -13,8 +15,40 @@ class DepositPage extends StatefulWidget {
   State<DepositPage> createState() => _DepositPageState();
 }
 
+class Transaction {
+  final String coinName;
+  final String? symbol;
+  final double amount;
+  final double price;
+  final DateTime date;
+
+  Transaction({
+    required this.coinName,
+    this.symbol,
+    required this.amount,
+    required this.price,
+    required this.date,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'coinName': coinName,
+      'symbol': symbol,
+      'amount': amount,
+      'price': price,
+      'date': date.toIso8601String(),
+    };
+  }
+}
+
 class _DepositPageState extends State<DepositPage> {
   final _formGlobalKey = GlobalKey<FormState>();
+  String? currencyValue;
+  List<String> options = [
+    'Bitcoin',
+    'Etherium',
+    'Cardano'
+  ]; // TODO: Dummy data for now
 
   List<TextInputField> textFields = [
     TextInputField(
@@ -31,8 +65,70 @@ class _DepositPageState extends State<DepositPage> {
     ),
   ];
 
-  String? currencyValue;
-  List<String> options = ['Bitcoin', 'Etherium', 'Cardano'];
+  bool validateForm() {
+    return currencyValue != null &&
+        textFields.every((field) => field.textController.text.isNotEmpty);
+  }
+
+  Transaction buildTransaction() {
+    return Transaction(
+      coinName: currencyValue!,
+      symbol: null,
+      amount: double.parse(textFields[0].textController.text),
+      price: double.parse(textFields[1].textController.text),
+      date: DateTime.parse(textFields[2].textController.text),
+    );
+  }
+
+  Future<void> saveTransactionToFile(Transaction transaction) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final folder = Directory('${directory.path}/crypto_diary_data');
+
+      // Ensure the folder exists
+      if (!await folder.exists()) {
+        await folder.create(recursive: true);
+      }
+
+      final file = File('${folder.path}/crypto_diary_local_data.json');
+
+      Map<String, dynamic> data = {};
+      if (await file.exists()) {
+        final fileContent = await file.readAsString();
+        data = json.decode(fileContent);
+      }
+
+      data.putIfAbsent("deposit_transactions", () => []);
+      (data["deposit_transactions"] as List).add(transaction);
+
+      await file.writeAsString(json.encode(data));
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void clearFormFields() {
+    for (final textField in textFields) {
+      textField.textController.clear();
+    }
+    setState(() {
+      currencyValue = null;
+    });
+  }
+
+  void handleDeposit() async {
+    if (!validateForm()) {
+      log('Please fill in all the fields!');
+      return;
+    }
+
+    final transaction = buildTransaction();
+
+    await saveTransactionToFile(transaction);
+
+    log('Transaction saved successfully!');
+    clearFormFields();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,74 +188,7 @@ class _DepositPageState extends State<DepositPage> {
                   height: 40,
                 ),
                 FilledButton(
-                  onPressed: () async {
-                    // Step 1: Extract the data from the text fields
-                    final selectedCurrency = currencyValue;
-                    final quantity = textFields[0].textController.text;
-                    final price = textFields[1].textController.text;
-                    final date = textFields[2].textController.text;
-
-                    if (selectedCurrency != null &&
-                        quantity.isNotEmpty &&
-                        price.isNotEmpty &&
-                        date.isNotEmpty) {
-                      // Proceed to save the data
-
-                      final transactionData = {
-                        'currency': selectedCurrency,
-                        'quantity': quantity,
-                        'price': price,
-                        'date': date,
-                      };
-
-                      print('Transaction Data: $transactionData');
-
-                      final directory =
-                          await getApplicationDocumentsDirectory();
-                      print('Directory: ${directory.path}');
-                      final folder =
-                          Directory('${directory.path}/crypto_diary_data');
-
-                      // Ensure the folder exists
-                      if (!await folder.exists()) {
-                        await folder.create(recursive: true);
-                      }
-
-                      final file =
-                          File('${folder.path}/crypto_diary_local_data.json');
-
-                      // Step 4: Write or Update the File
-                      if (await file.exists()) {
-                        // Read the existing data
-                        final fileContent = await file.readAsString();
-                        List<dynamic> existingData = json.decode(fileContent);
-
-                        // Add the new transaction to the existing data
-                        existingData.add(transactionData);
-
-                        // Write the updated data back to the file
-                        await file.writeAsString(json.encode(existingData));
-                      } else {
-                        // If the file doesn't exist, create it and add the new data
-                        List<dynamic> newData = [transactionData];
-                        await file.writeAsString(json.encode(newData));
-                      }
-
-                      print('Transaction saved successfully!');
-
-                      // Clear the text fields
-                      //_formGlobalKey.currentState!.reset();
-                      for (final textField in textFields) {
-                        textField.clearTextField();
-                      }
-                      setState(() {
-                        currencyValue = null;
-                      });
-                    } else {
-                      // Show an error message or handle the case
-                      print('Please fill in all the fields!');
-                    }
-                  },
+                  onPressed: handleDeposit,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey[800],
                     shape: RoundedRectangleBorder(
