@@ -7,6 +7,7 @@ import 'dart:convert';
 
 import 'package:crypto_diary/pages/text_input_field.dart';
 import 'package:crypto_diary/pages/page_header.dart';
+import 'package:crypto_diary/pages/transaction_button.dart';
 
 class DepositPage extends StatefulWidget {
   const DepositPage({super.key});
@@ -146,11 +147,11 @@ class _DepositPageState extends State<DepositPage> {
           alignment: Alignment.center,
           child: Form(
             key: _formGlobalKey,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 150, right: 150),
-                  child: DropdownButtonFormField<String>(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                children: [
+                  DropdownButtonFormField<String>(
                     value: currencyValue,
                     hint: const Text('Currency'),
                     onChanged: (String? newValue) {
@@ -166,8 +167,7 @@ class _DepositPageState extends State<DepositPage> {
                           value,
                           style: const TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black, // Customize text color
+                            //color: Colors.white,
                           ),
                         ),
                       );
@@ -179,25 +179,19 @@ class _DepositPageState extends State<DepositPage> {
                       labelText: 'Select Option', // Optional label
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                for (final textField in textFields) textField,
-                const SizedBox(
-                  height: 40,
-                ),
-                FilledButton(
-                  onPressed: handleDeposit,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[800],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  child: const Text("Deposit"),
-                )
-              ],
+                  for (final textField in textFields) textField,
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  TransactionActionButton(
+                    buttonText: 'Deposit',
+                    onPressed: handleDeposit,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -1,0 +1,42 @@
+{
+    "BTC": {
+        "name": "Bitcoin",
+        "symbol": "BTC"
+    },
+    "ETH": {
+        "name": "Ethereum",
+        "symbol": "ETH"
+    },
+    "BNB": {
+        "name": "Binance Coin",
+        "symbol": "BNB"
+    },
+    "USDT": {
+        "name": "Tether",
+        "symbol": "USDT"
+    },
+    "SOL": {
+        "name": "Solana",
+        "symbol": "SOL"
+    },
+    "ADA": {
+        "name": "Cardano",
+        "symbol": "ADA"
+    },
+    "XRP": {
+        "name": "XRP",
+        "symbol": "XRP"
+    },
+    "USDC": {
+        "name": "USD Coin",
+        "symbol": "USDC"
+    },
+    "DOT": {
+        "name": "Polkadot",
+        "symbol": "DOT"
+    },
+    "DOGE": {
+        "name": "Dogecoin",
+        "symbol": "DOGE"
+    }
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_diary/pages/deposit_page.dart';
 import 'package:crypto_diary/pages/withdraw_page.dart';
+import 'package:crypto_diary/pages/settings_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,15 +14,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Crypto Diary',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
-          secondary: Colors.deepPurple[200],
+          primary: Colors.deepPurple[400],
+          secondary: Colors.deepPurple[700],
+          brightness: Brightness.dark,
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Crypto Diary'),
     );
   }
 }
@@ -52,15 +56,24 @@ class _MyHomePageState extends State<MyHomePage> {
       icon: Icon(Icons.grid_on),
       label: 'History',
     ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.settings),
+      label: 'Settings',
+    ),
   ];
 
   getActiveWidgetPage(selectedIndex) {
-    if (selectedIndex == 0) {
-      return const DepositPage();
-    } else if (selectedIndex == 1) {
-      return const WithdrawPage();
-    } else if (selectedIndex == 2) {
-      return const Text('History');
+    switch (selectedIndex) {
+      case 0:
+        return const DepositPage();
+      case 1:
+        return const WithdrawPage();
+      case 2:
+        return const Text('History');
+      case 3:
+        return const SettingsPage();
+      default:
+        return const DepositPage();
     }
   }
 
@@ -68,19 +81,17 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        //backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(widget.title),
+        centerTitle: true,
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: getActiveWidgetPage(selectedIndex),
-              ),
-            ],
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+          child: Container(
+            child: getActiveWidgetPage(selectedIndex),
           ),
         ),
       ),
@@ -91,10 +102,34 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedIndex = newIndex;
           });
         },
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        elevation: 0,
+        type: BottomNavigationBarType.fixed,
+        //backgroundColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Colors.white,
-        items: bottomToolbarItems,
+        selectedItemColor: Colors.white,
+        items: bottomToolbarItems.map((item) {
+          int index = bottomToolbarItems.indexOf(item);
+          return BottomNavigationBarItem(
+            icon: AnimatedContainer(
+              duration: const Duration(milliseconds: 100),
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: Colors.transparent, // Keep the background transparent
+                border: Border.all(
+                  color: selectedIndex == index
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent, // Border color
+                  width: 1.0, // Border width
+                ),
+                borderRadius: BorderRadius.circular(
+                    8.0), // Same border radius for rounded corners
+              ),
+              child: item.icon,
+            ),
+            label: item.label,
+          );
+        }).toList(),
       ),
     );
   }

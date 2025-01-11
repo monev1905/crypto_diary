@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:crypto_diary/pages/text_input_field.dart';
 import 'package:crypto_diary/pages/page_header.dart';
+import 'package:crypto_diary/pages/transaction_button.dart';
 
 class WithdrawPage extends StatefulWidget {
   const WithdrawPage({super.key});
@@ -27,9 +28,12 @@ class _WithdrawPageState extends State<WithdrawPage> {
       textController: TextEditingController(),
     ),
   ];
-
-  String? currencyValue;
   List<String> options = ['Bitcoin', 'Etherium', 'Cardano'];
+  String? currencyValue;
+
+  void handleWithdraw() async {
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +53,11 @@ class _WithdrawPageState extends State<WithdrawPage> {
             children: [
               Form(
                 key: _formGlobalKey,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 150, right: 150),
-                      child: DropdownButtonFormField<String>(
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    children: [
+                      DropdownButtonFormField<String>(
                         value: currencyValue,
                         hint: const Text('Currency'),
                         onChanged: (String? newValue) {
@@ -83,94 +87,19 @@ class _WithdrawPageState extends State<WithdrawPage> {
                           labelText: 'Select Option', // Optional label
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    for (final textField in textFields) textField,
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    FilledButton(
-                      onPressed: () async {
-                        // Step 1: Extract the data from the text fields
-                        final selectedCurrency = currencyValue;
-                        final quantity = textFields[0].textController.text;
-                        final price = textFields[1].textController.text;
-                        final date = textFields[2].textController.text;
-
-                        if (selectedCurrency != null &&
-                            quantity.isNotEmpty &&
-                            price.isNotEmpty &&
-                            date.isNotEmpty) {
-                          // Proceed to save the data
-
-                          final transactionData = {
-                            'currency': selectedCurrency,
-                            'quantity': quantity,
-                            'price': price,
-                            'date': date,
-                          };
-
-                          print('Transaction Data: $transactionData');
-
-                          /*
-                          final directory = await getApplicationDocumentsDirectory();
-                          print('Directory: ${directory.path}');
-                          final folder =
-                              Directory('${directory.path}/crypto_diary_data');
-          
-                          // Ensure the folder exists
-                          if (!await folder.exists()) {
-                            await folder.create(recursive: true);
-                          }
-          
-                          final file =
-                              File('${folder.path}/crypto_diary_local_data.json');
-          
-                          // Step 4: Write or Update the File
-                          if (await file.exists()) {
-                            // Read the existing data
-                            final fileContent = await file.readAsString();
-                            List<dynamic> existingData = json.decode(fileContent);
-          
-                            // Add the new transaction to the existing data
-                            existingData.add(transactionData);
-          
-                            // Write the updated data back to the file
-                            await file.writeAsString(json.encode(existingData));
-                          } else {
-                            // If the file doesn't exist, create it and add the new data
-                            List<dynamic> newData = [transactionData];
-                            await file.writeAsString(json.encode(newData));
-                          }
-          
-                          print('Transaction saved successfully!');
-          
-                          // Clear the text fields
-                          //_formGlobalKey.currentState!.reset();
-                          for (final textField in textFields) {
-                            textField.clearTextField();
-                          }
-                          setState(() {
-                            currencyValue = null;
-                          });
-          
-                          */
-                        } else {
-                          // Show an error message or handle the case
-                          print('Please fill in all the fields!');
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey[800],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
+                      const SizedBox(
+                        height: 20,
                       ),
-                      child: const Text("Withdraw"),
-                    )
-                  ],
+                      for (final textField in textFields) textField,
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      TransactionActionButton(
+                        buttonText: 'Withdraw',
+                        onPressed: handleWithdraw,
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
