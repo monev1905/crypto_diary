@@ -5,9 +5,9 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:crypto_diary/pages/text_input_field.dart';
-import 'package:crypto_diary/pages/page_header.dart';
-import 'package:crypto_diary/pages/transaction_button.dart';
+import 'package:crypto_diary/views/widgets/text_input_field_widget.dart';
+import 'package:crypto_diary/views/widgets/page_header_widget.dart';
+import 'package:crypto_diary/views/widgets/transaction_button.dart';
 
 class DepositPage extends StatefulWidget {
   const DepositPage({super.key});
@@ -51,16 +51,16 @@ class _DepositPageState extends State<DepositPage> {
     'Cardano'
   ]; // TODO: Dummy data for now
 
-  List<TextInputField> textFields = [
-    TextInputField(
+  List<TextInputFieldWidget> textFields = [
+    TextInputFieldWidget(
       label: "Quantity",
       textController: TextEditingController(),
     ),
-    TextInputField(
+    TextInputFieldWidget(
       label: "Price",
       textController: TextEditingController(),
     ),
-    TextInputField(
+    TextInputFieldWidget(
       label: "Date",
       textController: TextEditingController(),
     ),
@@ -137,7 +137,7 @@ class _DepositPageState extends State<DepositPage> {
       children: [
         const Align(
           alignment: Alignment.topCenter,
-          child: PageHeader(
+          child: PageHeaderWidget(
             title: 'Deposit',
             subtitle: 'Deposit your crypto assets',
           ),

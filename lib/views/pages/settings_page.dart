@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:crypto_diary/pages/page_header.dart';
+import 'package:crypto_diary/views/widgets/page_header_widget.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
       children: [
         const Align(
           alignment: Alignment.topCenter,
-          child: PageHeader(
+          child: PageHeaderWidget(
             title: 'Settings',
             subtitle: '',
           ),

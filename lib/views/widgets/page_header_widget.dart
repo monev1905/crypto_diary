@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class PageHeader extends StatelessWidget {
+class PageHeaderWidget extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const PageHeader({
+  const PageHeaderWidget({
     super.key,
     required this.title,
     required this.subtitle,
