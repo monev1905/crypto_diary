@@ -35,6 +35,21 @@ class _WidgetTreeState extends State<WidgetTree> {
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        actions: [
+          ValueListenableBuilder(
+            valueListenable: isDarkModeNotifier,
+            builder: (context, isDarkMode, child) {
+              return IconButton(
+                icon: Icon(
+                  isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                ),
+                onPressed: () {
+                  isDarkModeNotifier.value = !isDarkModeNotifier.value;
+                },
+              );
+            },
+          )
+        ],
       ),
       body: ValueListenableBuilder(
         valueListenable: selectedPageNotifier,

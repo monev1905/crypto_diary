@@ -19,8 +19,4 @@ class TextInputFieldWidget extends StatelessWidget {
       ),
     );
   }
-
-  void clearTextField() {
-    textController.clear();
-  }
 }

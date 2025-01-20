@@ -1,9 +1,14 @@
 import 'package:crypto_diary/data/notifiers.dart';
 import 'package:flutter/material.dart';
 
-class BottomToolbarWidget extends StatelessWidget {
+class BottomToolbarWidget extends StatefulWidget {
   const BottomToolbarWidget({super.key});
 
+  @override
+  State<BottomToolbarWidget> createState() => _BottomToolbarWidgetState();
+}
+
+class _BottomToolbarWidgetState extends State<BottomToolbarWidget> {
   final List<BottomNavigationBarItem> bottomToolbarItems = const [
     BottomNavigationBarItem(
       icon: Icon(Icons.attach_money),

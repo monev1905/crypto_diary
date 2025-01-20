@@ -7,7 +7,7 @@ import 'dart:convert';
 
 import 'package:crypto_diary/views/widgets/text_input_field_widget.dart';
 import 'package:crypto_diary/views/widgets/page_header_widget.dart';
-import 'package:crypto_diary/views/widgets/transaction_button.dart';
+import 'package:crypto_diary/views/widgets/transaction_button_widget.dart';
 
 class DepositPage extends StatefulWidget {
   const DepositPage({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TransactionActionButton extends StatefulWidget {
+class TransactionActionButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
 
@@ -11,15 +11,9 @@ class TransactionActionButton extends StatefulWidget {
   });
 
   @override
-  State<TransactionActionButton> createState() =>
-      _TransactionActionButtonState();
-}
-
-class _TransactionActionButtonState extends State<TransactionActionButton> {
-  @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: widget.onPressed,
+      onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         backgroundColor: Colors.transparent,
         side: BorderSide(
@@ -31,7 +25,7 @@ class _TransactionActionButtonState extends State<TransactionActionButton> {
           borderRadius: BorderRadius.circular(4),
         ),
       ),
-      child: Text(widget.buttonText),
+      child: Text(buttonText),
     );
   }
 }
