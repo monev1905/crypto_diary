@@ -1,5 +1,5 @@
 import 'package:crypto_diary/data/notifiers.dart';
-import 'package:crypto_diary/views/widget_tree.dart';
+import 'package:crypto_diary/views/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
             ),
             useMaterial3: true,
           ),
-          home: const WidgetTree(title: 'Crypto Diary'),
+          home: const WelcomePage(),
         );
       },
     );
