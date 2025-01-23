@@ -13,14 +13,15 @@ class WelcomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset(
               'assets/lotties/welcome_animation.json',
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             FilledButton(
               onPressed: () {
                 Navigator.pushReplacement(
@@ -34,6 +35,9 @@ class WelcomePage extends StatelessWidget {
                   ),
                 );
               },
+              style: FilledButton.styleFrom(
+                minimumSize: const Size(double.infinity, 50),
+              ),
               child: const Text(
                 "Get Started",
                 style: TextStyle(
@@ -41,6 +45,7 @@ class WelcomePage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
