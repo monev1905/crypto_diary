@@ -1,5 +1,6 @@
 import 'package:crypto_diary/views/widget_tree.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -13,34 +14,36 @@ class WelcomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Text(
-            'Welcome to the app!',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset(
+              'assets/lotties/welcome_animation.json',
             ),
-          ),
-          SizedBox(height: 20),
-          FilledButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return WidgetTree(
-                      title: title,
-                    );
-                  },
+            const SizedBox(height: 20),
+            FilledButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return WidgetTree(
+                        title: title,
+                      );
+                    },
+                  ),
+                );
+              },
+              child: const Text(
+                "Get Started",
+                style: TextStyle(
+                  color: Colors.white,
                 ),
-              );
-            },
-            child: Text("Get Started"),
-          ),
-        ],
-      )),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
