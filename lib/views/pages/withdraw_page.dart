@@ -54,7 +54,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
               Form(
                 key: _formGlobalKey,
                 child: Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
                       DropdownButtonFormField<String>(

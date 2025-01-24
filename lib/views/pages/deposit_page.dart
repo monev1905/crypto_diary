@@ -133,22 +133,20 @@ class _DepositPageState extends State<DepositPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Align(
-          alignment: Alignment.topCenter,
-          child: PageHeaderWidget(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const PageHeaderWidget(
             title: 'Deposit',
             subtitle: 'Deposit your crypto assets',
           ),
-        ),
-        const Spacer(),
-        Align(
-          alignment: Alignment.center,
-          child: Form(
+          const SizedBox(
+            height: 40,
+          ),
+          Form(
             key: _formGlobalKey,
             child: Padding(
-              padding: const EdgeInsets.all(32.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
                   DropdownButtonFormField<String>(
@@ -194,11 +192,8 @@ class _DepositPageState extends State<DepositPage> {
               ),
             ),
           ),
-        ),
-        const Spacer(
-          flex: 2,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
