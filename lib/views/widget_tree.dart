@@ -3,9 +3,10 @@ import 'package:crypto_diary/data/notifiers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:crypto_diary/views/widgets/bottom_toolbar_widget.dart';
-import 'package:crypto_diary/views/pages/deposit_page.dart';
+import 'package:crypto_diary/views/pages/transactions_form_page.dart';
 import 'package:crypto_diary/views/pages/withdraw_page.dart';
 import 'package:crypto_diary/views/pages/settings_page.dart';
+import 'package:crypto_diary/views/pages/balance_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WidgetTree extends StatefulWidget {
@@ -25,9 +26,9 @@ class _WidgetTreeState extends State<WidgetTree> {
   var activeWidgetPage = const WithdrawPage();
 
   List<Widget> pages = [
-    const DepositPage(),
-    const WithdrawPage(),
-    const Text('History'),
+    const TransactionFormPage(transactionType: "Deposit"),
+    const TransactionFormPage(transactionType: "Withdraw"),
+    const BalancePage(),
     const SettingsPage(),
   ];
 

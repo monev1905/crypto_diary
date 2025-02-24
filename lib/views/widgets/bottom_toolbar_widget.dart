@@ -19,8 +19,8 @@ class _BottomToolbarWidgetState extends State<BottomToolbarWidget> {
       label: 'Withdraw',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.grid_on),
-      label: 'History',
+      icon: Icon(Icons.account_balance_wallet),
+      label: 'Balance',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.settings),
